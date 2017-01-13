@@ -116,7 +116,11 @@ class ReviewReportPlugin extends ReportPlugin {
 					$columns[$index] = __($row[$index]?'common.yes':'common.no');
 					break;
 				case 'recommendation':
-					$columns[$index] = (!isset($row[$index])) ? __('common.none') : __($recommendations[$row[$index]]);
+					if (isset($recommendations[$row[$index]])) {
+						$columns[$index] = (!isset($row[$index])) ? __('common.none') : __($recommendations[$row[$index]]);
+					} else {
+						$columns[$index] = '';
+					}
 					break;
 				case 'comments':
 					if (isset($comments[$row['submission_id']][$row['reviewer_id']])) {
