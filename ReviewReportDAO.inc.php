@@ -6,7 +6,7 @@
  * Copyright (c) 2014-2017 Simon Fraser University Library
  * Copyright (c) 2003-2017 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
- * 
+ *
  * @class ReviewReportDAO
  * @ingroup plugins_reports_review
  * @see ReviewReportPlugin
@@ -26,7 +26,8 @@ class ReviewReportDAO extends DAO {
 	function getReviewReport($contextId) {
 		$locale = AppLocale::getLocale();
 
-		$result = $this->retrieve(
+		import('lib.pkp.classes.db.DBRowIterator');
+		$commentsReturner = new DBRowIterator($this->retrieve(
 			'SELECT	submission_id,
 				comments,
 				author_id
@@ -35,16 +36,14 @@ class ReviewReportDAO extends DAO {
 			array(
 				COMMENT_TYPE_PEER_REVIEW
 			)
-		);
-		import('lib.pkp.classes.db.DBRowIterator');
-		$commentsReturner = new DBRowIterator($result);
-		unset($result);
+		));
 
-		$result = $this->retrieve(
-			'SELECT r.round AS round,
+		$reviewsReturner = new DBRowIterator($this->retrieve(
+			'SELECT	r.stage_id AS stage_id,
+				r.round AS round,
 				COALESCE(asl.setting_value, aspl.setting_value) AS submission,
-				a.submission_id AS submissionId,
-				u.user_id AS reviewerId,
+				a.submission_id AS submission_id,
+				u.user_id AS reviewer_id,
 				u.username AS reviewer,
 				u.first_name AS firstName,
 				u.middle_name AS middleName,
@@ -62,7 +61,7 @@ class ReviewReportDAO extends DAO {
 				LEFT JOIN submission_settings asl ON (a.submission_id=asl.submission_id AND asl.locale=? AND asl.setting_name=?)
 				LEFT JOIN submission_settings aspl ON (a.submission_id=aspl.submission_id AND aspl.locale=a.locale AND aspl.setting_name=?),
 				users u
-			WHERE	u.user_id=r.reviewer_id AND a.context_id= ?
+			WHERE	u.user_id=r.reviewer_id AND a.context_id=?
 			ORDER BY submission',
 			array(
 				$locale, // Submission title
@@ -70,9 +69,7 @@ class ReviewReportDAO extends DAO {
 				'title',
 				(int) $contextId
 			)
-		);
-		$reviewsReturner = new DBRowIterator($result);
-		unset($result);
+		));
 
 		return array($commentsReturner, $reviewsReturner);
 	}

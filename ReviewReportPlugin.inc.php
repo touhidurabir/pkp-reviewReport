@@ -73,8 +73,6 @@ class ReviewReportPlugin extends ReportPlugin {
 			}
 		}
 
-		$yesnoMessages = array( 0 => __('common.no'), 1 => __('common.yes'));
-
 		import('lib.pkp.classes.submission.reviewAssignment.ReviewAssignment');
 		$recommendations = array(
 			SUBMISSION_REVIEWER_RECOMMENDATION_ACCEPT => 'reviewer.article.decision.accept',
@@ -86,10 +84,10 @@ class ReviewReportPlugin extends ReportPlugin {
 		);
 
 		$columns = array(
+			'stage_id' => __('workflow.stage'),
 			'round' => __('plugins.reports.reviews.round'),
 			'submission' => __('article.articles'),
-			'submissionid' => __('article.submissionId'),
-			'reviewerid' => __('plugins.reports.reviews.reviewerId'),
+			'submission_id' => __('article.submissionId'),
 			'reviewer' => __('plugins.reports.reviews.reviewer'),
 			'firstname' => __('user.firstName'),
 			'middlename' => __('user.middleName'),
@@ -104,26 +102,31 @@ class ReviewReportPlugin extends ReportPlugin {
 			'recommendation' => __('reviewer.article.recommendation'),
 			'comments' => __('comments.commentsOnArticle')
 		);
-		$yesNoArray = array('declined', 'cancelled');
 
 		$fp = fopen('php://output', 'wt');
 		fputcsv($fp, array_values($columns));
 
 		while ($row = $reviewsIterator->next()) {
-			foreach ($columns as $index => $junk) {
-				if (in_array($index, $yesNoArray)) {
-					$columns[$index] = $yesnoMessages[$row[$index]];
-				} elseif ($index == "recommendation") {
+			foreach ($columns as $index => $junk) switch ($index) {
+				case 'stage_id':
+					$columns[$index] = __(WorkflowStageDAO::getTranslationKeyFromId($row[$index]));
+					break;
+				case 'declined':
+				case 'cancelled':
+					$columns[$index] = __($row[$index]?'common.yes':'common.no');
+					break;
+				case 'recommendation':
 					$columns[$index] = (!isset($row[$index])) ? __('common.none') : __($recommendations[$row[$index]]);
-				} elseif ($index == "comments") {
-					if (isset($comments[$row['submissionid']][$row['reviewerid']])) {
-						$columns[$index] = $comments[$row['submissionid']][$row['reviewerid']];
+					break;
+				case 'comments':
+					if (isset($comments[$row['submission_id']][$row['reviewer_id']])) {
+						$columns[$index] = $comments[$row['submission_id']][$row['reviewer_id']];
 					} else {
-						$columns[$index] = "";
+						$columns[$index] = '';
 					}
-				} else {
+					break;
+				default:
 					$columns[$index] = $row[$index];
-				}
 			}
 			fputcsv($fp, $columns);
 		}
