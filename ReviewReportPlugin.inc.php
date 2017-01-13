@@ -86,8 +86,8 @@ class ReviewReportPlugin extends ReportPlugin {
 		$columns = array(
 			'stage_id' => __('workflow.stage'),
 			'round' => __('plugins.reports.reviews.round'),
-			'submission' => __('article.articles'),
-			'submission_id' => __('article.submissionId'),
+			'submission' => __('plugins.reports.reviews.submissionTitle'),
+			'submission_id' => __('plugins.reports.reviews.submissionId'),
 			'reviewer' => __('plugins.reports.reviews.reviewer'),
 			'firstname' => __('user.firstName'),
 			'middlename' => __('user.middleName'),
@@ -99,8 +99,8 @@ class ReviewReportPlugin extends ReportPlugin {
 			'datereminded' => __('plugins.reports.reviews.dateReminded'),
 			'declined' => __('submissions.declined'),
 			'cancelled' => __('common.cancelled'),
-			'recommendation' => __('reviewer.article.recommendation'),
-			'comments' => __('comments.commentsOnArticle')
+			'recommendation' => __('plugins.reports.reviews.recommendation'),
+			'comments' => __('plugins.reports.reviews.comments')
 		);
 
 		$fp = fopen('php://output', 'wt');
