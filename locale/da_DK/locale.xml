@@ -23,5 +23,9 @@
 	<message key="plugins.reports.reviews.dateConfirmed">Bekræftelsesdato</message>
 	<message key="plugins.reports.reviews.dateCompleted">Færdiggørelsesdato</message>
 	<message key="plugins.reports.reviews.dateReminded">Påmindelsesdato</message>
+	<message key="plugins.reports.reviews.submissionTitle">Indsendelsestitel</message>
+	<message key="plugins.reports.reviews.submissionId">Indsendelses-ID</message>
+	<message key="plugins.reports.reviews.recommendation">Anbefaling</message>
+	<message key="plugins.reports.reviews.comments">Kommentarer til indsendelse</message>
 </locale>
 
