@@ -14,7 +14,7 @@
 
 <locale name="da_DK" full_name="Dansk">
 	<message key="plugins.reports.reviews.displayName">Bedømmerrapport</message>
-	<message key="plugins.reports.reviews.description">Dette plugin genererer en CSV-rapport indeholdende en oversigt over tidsskriftets bedømmelsesoverdragelser.</message>
+	<message key="plugins.reports.reviews.description">Denne plugin genererer en CSV-rapport indeholdende en oversigt over tidsskriftets bedømmelsesoverdragelser.</message>
 	<message key="plugins.reports.reviews.round">Gang</message>
 	<message key="plugins.reports.reviews.reviewerId">Bedømmer ID</message>
 	<message key="plugins.reports.reviews.reviewer">Bedømmer</message>
