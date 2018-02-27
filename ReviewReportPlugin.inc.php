@@ -18,13 +18,10 @@ import('lib.pkp.classes.plugins.ReportPlugin');
 
 class ReviewReportPlugin extends ReportPlugin {
 	/**
-	 * Called as a plugin is registered to the registry
-	 * @param $category String Name of category plugin was registered to
-	 * @return boolean True if plugin initialized successfully; if false,
-	 * 	the plugin will not be registered.
+	 * @copydoc Plugin::register()
 	 */
-	function register($category, $path) {
-		$success = parent::register($category, $path);
+	function register($category, $path, $mainContextId = null) {
+		$success = parent::register($category, $path, $mainContextId);
 		if ($success && Config::getVar('general', 'installed')) {
 			$this->import('ReviewReportDAO');
 			$reviewReportDAO = new ReviewReportDAO();
@@ -35,18 +32,22 @@ class ReviewReportPlugin extends ReportPlugin {
 	}
 
 	/**
-	 * Get the name of this plugin. The name must be unique within
-	 * its category.
-	 * @return String name of plugin
+	 * @copydoc Plugin::getName()
 	 */
 	function getName() {
 		return 'ReviewReportPlugin';
 	}
 
+	/**
+	 * @copydoc Plugin::getDisplayName()
+	 */
 	function getDisplayName() {
 		return __('plugins.reports.reviews.displayName');
 	}
 
+	/**
+	 * @copydoc Plugin::getDescription()
+	 */
 	function getDescription() {
 		return __('plugins.reports.reviews.description');
 	}
