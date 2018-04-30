@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @file ReviewReportDAO.inc.php
+ * @file plugins/reports/reviewReport/ReviewReportDAO.inc.php
  *
  * Copyright (c) 2014-2018 Simon Fraser University
  * Copyright (c) 2003-2018 John Willinsky
@@ -38,6 +38,16 @@ class ReviewReportDAO extends DAO {
 			)
 		));
 
+		$userDao = DAORegistry::getDAO('UserDAO');
+		$params = array_merge(
+			array(
+				$locale, // Submission title
+				'title',
+				'title',
+			),
+			$userDao->getFetchParameters(),
+			array((int) $contextId)
+		);
 		$reviewsReturner = new DBRowIterator($this->retrieve(
 			'SELECT	r.stage_id AS stage_id,
 				r.round AS round,
@@ -45,9 +55,7 @@ class ReviewReportDAO extends DAO {
 				a.submission_id AS submission_id,
 				u.user_id AS reviewer_id,
 				u.username AS reviewer,
-				u.first_name AS firstName,
-				u.middle_name AS middleName,
-				u.last_name AS lastName,
+				' . $userDao->getFetchColumns() .',
 				r.date_assigned AS dateAssigned,
 				r.date_notified AS dateNotified,
 				r.date_confirmed AS dateConfirmed,
@@ -57,17 +65,13 @@ class ReviewReportDAO extends DAO {
 				r.recommendation AS recommendation
 			FROM	review_assignments r
 				LEFT JOIN submissions a ON r.submission_id = a.submission_id
-				LEFT JOIN submission_settings asl ON (a.submission_id=asl.submission_id AND asl.locale=? AND asl.setting_name=?)
-				LEFT JOIN submission_settings aspl ON (a.submission_id=aspl.submission_id AND aspl.locale=a.locale AND aspl.setting_name=?),
-				users u
-			WHERE	u.user_id=r.reviewer_id AND a.context_id=?
+				LEFT JOIN submission_settings asl ON (a.submission_id = asl.submission_id AND asl.locale = ? AND asl.setting_name = ?)
+				LEFT JOIN submission_settings aspl ON (a.submission_id = aspl.submission_id AND aspl.locale = a.locale AND aspl.setting_name = ?)
+				LEFT JOIN users u ON (u.user_id = r.reviewer_id)
+				' . $userDao->getFetchJoins() .'
+			WHERE	 a.context_id = ?
 			ORDER BY submission',
-			array(
-				$locale, // Submission title
-				'title',
-				'title',
-				(int) $contextId
-			)
+			$params
 		));
 
 		return array($commentsReturner, $reviewsReturner);
