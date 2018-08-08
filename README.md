@@ -13,4 +13,4 @@ To install this plugin, either use git...
 
 ...or find the plugin in the Plugin Gallery within your application, if available.
 
-This should make the report available immediately in your application in Tools > Statistics.
+This should make the report available immediately in your application in `Tools` > `Statistics`.
