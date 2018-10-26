@@ -9,7 +9,6 @@
   * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
   *
   * Localization strings for the it_IT (Italiano) locale.
-  *
   -->
 
 <locale name="it_IT" full_name="Italiano">
@@ -27,4 +26,3 @@
 	<message key="plugins.reports.reviews.recommendation">Raccomandazione</message>
 	<message key="plugins.reports.reviews.comments">Commenti sulle proposte</message>
 </locale>
-
