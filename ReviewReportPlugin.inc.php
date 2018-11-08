@@ -103,6 +103,8 @@ class ReviewReportPlugin extends ReportPlugin {
 		);
 
 		$fp = fopen('php://output', 'wt');
+		//Add BOM (byte order mark) to fix UTF-8 in Excel
+		fprintf($fp, chr(0xEF).chr(0xBB).chr(0xBF));
 		fputcsv($fp, array_values($columns));
 
 		while ($row = $reviewsIterator->next()) {
