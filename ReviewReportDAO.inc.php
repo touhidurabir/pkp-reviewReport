@@ -39,6 +39,9 @@ class ReviewReportDAO extends DAO {
 		));
 
 		$userDao = DAORegistry::getDAO('UserDAO');
+		$site = Application::getRequest()->getSite();
+		$sitePrimaryLocale = $site->getPrimaryLocale();
+
 		$params = array_merge(
 			array(
 				$locale, // Submission title
@@ -46,7 +49,13 @@ class ReviewReportDAO extends DAO {
 				'title',
 			),
 			$userDao->getFetchParameters(),
-			array((int) $contextId)
+			array(
+				'affiliation',
+				'affiliation',
+				$sitePrimaryLocale,
+				'orcid',
+				(int) $contextId
+			)
 		);
 		$reviewsReturner = new DBRowIterator($this->retrieve(
 			'SELECT	r.stage_id AS stage_id,
@@ -56,12 +65,20 @@ class ReviewReportDAO extends DAO {
 				u.user_id AS reviewer_id,
 				u.username AS reviewer,
 				' . $userDao->getFetchColumns() .',
+				u.email AS email,
+				u.country AS country,
+				us.setting_value AS orcid,
+				COALESCE(uasl.setting_value, uas.setting_value) AS affiliation,
 				r.date_assigned AS dateAssigned,
 				r.date_notified AS dateNotified,
 				r.date_confirmed AS dateConfirmed,
 				r.date_completed AS dateCompleted,
+				r.date_acknowledged AS dateAcknowledged,
 				r.date_reminded AS dateReminded,
+				r.date_due AS dateDue,
+				r.date_response_due AS dateResponseDue,
 				(r.declined=1) AS declined,
+				(r.unconsidered=1) AS unconsidered,
 				r.recommendation AS recommendation
 			FROM	review_assignments r
 				LEFT JOIN submissions a ON r.submission_id = a.submission_id
@@ -69,12 +86,33 @@ class ReviewReportDAO extends DAO {
 				LEFT JOIN submission_settings aspl ON (a.submission_id = aspl.submission_id AND aspl.locale = a.locale AND aspl.setting_name = ?)
 				LEFT JOIN users u ON (u.user_id = r.reviewer_id)
 				' . $userDao->getFetchJoins() .'
+				LEFT JOIN user_settings uas ON (u.user_id = uas.user_id AND uas.setting_name = ? AND uas.locale = a.locale)
+				LEFT JOIN user_settings uasl ON (u.user_id = uasl.user_id AND uasl.setting_name = ? AND uasl.locale = ?)
+				LEFT JOIN user_settings us ON (u.user_id = us.user_id AND us.setting_name = ?)
 			WHERE	 a.context_id = ?
 			ORDER BY submission',
 			$params
 		));
 
-		return array($commentsReturner, $reviewsReturner);
+		import('lib.pkp.classes.user.InterestManager');
+		$interestManager = new InterestManager();
+		$assignedReviewerIds = new DBRowIterator($this->retrieve(
+			'SELECT	r.reviewer_id
+			FROM	review_assignments r
+				LEFT JOIN submissions a ON r.submission_id = a.submission_id
+			WHERE	 a.context_id = ?
+			ORDER BY r.reviewer_id',
+			array((int) $contextId)
+		));
+		$interests = array();
+		while ($row = $assignedReviewerIds->next()) {
+			if (!array_key_exists($row['reviewer_id'], $interests)) {
+				$user = $userDao->getById($row['reviewer_id']);
+				$reviewerInterests = $interestManager->getInterestsString($user);
+				if (!empty($reviewerInterests))	$interests[$row['reviewer_id']] = $reviewerInterests;
+			}
+		}
+		return array($commentsReturner, $reviewsReturner, $interests);
 	}
 }
 

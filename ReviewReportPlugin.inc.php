@@ -63,7 +63,7 @@ class ReviewReportPlugin extends ReportPlugin {
 		AppLocale::requireComponents(LOCALE_COMPONENT_PKP_SUBMISSION);
 
 		$reviewReportDao = DAORegistry::getDAO('ReviewReportDAO');
-		list($commentsIterator, $reviewsIterator) = $reviewReportDao->getReviewReport($context->getId());
+		list($commentsIterator, $reviewsIterator, $interestsArray) = $reviewReportDao->getReviewReport($context->getId());
 
 		$comments = array();
 		while ($row = $commentsIterator->next()) {
@@ -92,11 +92,22 @@ class ReviewReportPlugin extends ReportPlugin {
 			'reviewer' => __('plugins.reports.reviews.reviewer'),
 			'user_given' => __('user.givenName'),
 			'user_family' => __('user.familyName'),
+			'orcid' => __('user.orcid'),
+			'country' => __('common.country'),
+			'affiliation' => __('user.affiliation'),
+			'email' => __('user.email'),
+			'interests' => __('user.interests'),
 			'dateassigned' => __('plugins.reports.reviews.dateAssigned'),
 			'datenotified' => __('plugins.reports.reviews.dateNotified'),
 			'dateconfirmed' => __('plugins.reports.reviews.dateConfirmed'),
 			'datecompleted' => __('plugins.reports.reviews.dateCompleted'),
+			'dateacknowledged' => __('plugins.reports.reviews.dateAcknowledged'),
+			'unconsidered' => __('plugins.reports.reviews.unconsidered'),
 			'datereminded' => __('plugins.reports.reviews.dateReminded'),
+			'dateresponsedue' => __('reviewer.submission.responseDueDate'),
+			'overdueresponse' => __('plugins.reports.reviews.responseOverdue'),
+			'datedue' => __('reviewer.submission.reviewDueDate'),
+			'overdue' => __('plugins.reports.reviews.reviewOverdue'),
 			'declined' => __('submissions.declined'),
 			'recommendation' => __('plugins.reports.reviews.recommendation'),
 			'comments' => __('plugins.reports.reviews.comments')
@@ -108,6 +119,16 @@ class ReviewReportPlugin extends ReportPlugin {
 		fputcsv($fp, array_values($columns));
 
 		while ($row = $reviewsIterator->next()) {
+			if (substr($row['dateresponsedue'], 11) === '00:00:00') {
+				$row['dateresponsedue'] = substr($row['dateresponsedue'], 0, 11) . '23:59:59';
+			}
+			if (substr($row['datedue'], 11) === '00:00:00') {
+				$row['datedue'] = substr($row['datedue'], 0, 11) . '23:59:59';
+			}
+			list($overdueResponseDays, $overdueDays) = $this->getOverdueDays($row);
+			$row['overdueresponse'] = $overdueResponseDays;
+			$row['overdue'] = $overdueDays;
+
 			foreach ($columns as $index => $junk) switch ($index) {
 				case 'stage_id':
 					$columns[$index] = __(WorkflowStageDAO::getTranslationKeyFromId($row[$index]));
@@ -115,7 +136,10 @@ class ReviewReportPlugin extends ReportPlugin {
 				case 'declined':
 					$columns[$index] = __($row[$index]?'common.yes':'common.no');
 					break;
-				case 'recommendation':
+				case 'unconsidered':
+					$columns[$index] = __($row[$index]?'common.yes':'');
+					break;
+					case 'recommendation':
 					if (isset($recommendations[$row[$index]])) {
 						$columns[$index] = (!isset($row[$index])) ? __('common.none') : __($recommendations[$row[$index]]);
 					} else {
@@ -129,6 +153,13 @@ class ReviewReportPlugin extends ReportPlugin {
 						$columns[$index] = '';
 					}
 					break;
+				case 'interests':
+					if (isset($interestsArray[$row['reviewer_id']])) {
+						$columns[$index] = $interestsArray[$row['reviewer_id']];
+					} else {
+						$columns[$index] = '';
+					}
+					break;
 				default:
 					$columns[$index] = $row[$index];
 			}
@@ -136,5 +167,25 @@ class ReviewReportPlugin extends ReportPlugin {
 		}
 		fclose($fp);
 	}
-}
 
+	function getOverdueDays($row) {
+		$responseDueTime = strtotime($row['dateresponsedue']);
+		$reviewDueTime = strtotime($row['datedue']);
+		$overdueResponseDays = $overdueDays = '';
+		if (!$row['dateconfirmed']){ // no response
+			if($responseDueTime < time()) { // response overdue
+				$datediff = time() - $responseDueTime;
+				$overdueResponseDays = round($datediff / (60 * 60 * 24));
+			} elseif ($reviewDueTime < time()) { // review overdue but not response
+				$datediff = time() - $reviewDueTime;
+				$overdueDays = round($datediff / (60 * 60 * 24));
+			}
+		} elseif (!$row['datecompleted']) { // response given, but not completed
+			if ($reviewDueTime < time()) { // review due
+				$datediff = time() - $reviewDueTime;
+				$overdueDays = round($datediff / (60 * 60 * 24));
+			}
+		}
+		return array($overdueResponseDays, $overdueDays);
+	}
+}
