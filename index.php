@@ -20,4 +20,3 @@ require_once('ReviewReportPlugin.inc.php');
 
 return new ReviewReportPlugin();
 
-?>

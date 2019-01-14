@@ -138,4 +138,3 @@ class ReviewReportPlugin extends ReportPlugin {
 	}
 }
 
-?>

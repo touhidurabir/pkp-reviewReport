@@ -78,4 +78,3 @@ class ReviewReportDAO extends DAO {
 	}
 }
 
-?>
