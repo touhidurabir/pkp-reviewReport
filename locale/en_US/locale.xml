@@ -21,8 +21,12 @@
 	<message key="plugins.reports.reviews.dateAssigned">Date Assigned</message>
 	<message key="plugins.reports.reviews.dateNotified">Date Notified</message>
 	<message key="plugins.reports.reviews.dateConfirmed">Date Confirmed</message>
+	<message key="plugins.reports.reviews.dateAcknowledged">Date Acknowledged</message>
+	<message key="plugins.reports.reviews.unconsidered">Unconsidered</message>
 	<message key="plugins.reports.reviews.dateCompleted">Date Completed</message>
 	<message key="plugins.reports.reviews.dateReminded">Date Reminded</message>
+	<message key="plugins.reports.reviews.reviewOverdue">Review Overdue Days</message>
+	<message key="plugins.reports.reviews.responseOverdue">Response Overdue Days</message>
 	<message key="plugins.reports.reviews.recommendation">Recommendation</message>
 	<message key="plugins.reports.reviews.comments">Comments On Submission</message>
 </locale>
