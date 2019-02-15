@@ -21,8 +21,12 @@
 	<message key="plugins.reports.reviews.dateAssigned">Дата назначения</message>
 	<message key="plugins.reports.reviews.dateNotified">Дата уведомления</message>
 	<message key="plugins.reports.reviews.dateConfirmed">Дата подтверждения</message>
+	<message key="plugins.reports.reviews.dateAcknowledged">Дата подтверждения получения</message>
+	<message key="plugins.reports.reviews.unconsidered">Нерассмотрен</message>
 	<message key="plugins.reports.reviews.dateCompleted">Дата окончания</message>
 	<message key="plugins.reports.reviews.dateReminded">Дата напоминания</message>
+	<message key="plugins.reports.reviews.reviewOverdue">Превышение срока рецензирования в днях</message>
+	<message key="plugins.reports.reviews.responseOverdue">Превышение срока ответа в днях</message>
 	<message key="plugins.reports.reviews.recommendation">Рекомендация</message>
 	<message key="plugins.reports.reviews.comments">Комментарии к материалу</message>
 </locale>
