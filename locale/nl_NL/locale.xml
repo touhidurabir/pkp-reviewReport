@@ -16,12 +16,18 @@
 	<message key="plugins.reports.reviews.displayName">Review rapport</message>
 	<message key="plugins.reports.reviews.description">Deze plugin maakt een komma-gescheiden rapport met een lijst reviewtaken voor een tijdschrift.</message>
 	<message key="plugins.reports.reviews.round">Ronde</message>
-	<message key="plugins.reports.reviews.reviewerId">Reviewer ID</message>
+	<message key="plugins.reports.reviews.submissionTitle">Titel van de inzending</message>
+	<message key="plugins.reports.reviews.submissionId">ID van de inzending</message>
 	<message key="plugins.reports.reviews.reviewer">Reviewer</message>
 	<message key="plugins.reports.reviews.dateAssigned">Datum toekenning</message>
 	<message key="plugins.reports.reviews.dateNotified">Datum bericht</message>
 	<message key="plugins.reports.reviews.dateConfirmed">Datum bevestiging</message>
+	<message key="plugins.reports.reviews.dateAcknowledged">Datum toewijzing</message>
+	<message key="plugins.reports.reviews.unconsidered">Niet in overweging genomen</message>
 	<message key="plugins.reports.reviews.dateCompleted">Datum gereed</message>
 	<message key="plugins.reports.reviews.dateReminded">Datum herinnering</message>
+	<message key="plugins.reports.reviews.reviewOverdue">Aantal dagen na uiterste reviewdatum</message>
+	<message key="plugins.reports.reviews.responseOverdue">Aantal dagen na uiterste antwoorddatum</message>
+	<message key="plugins.reports.reviews.recommendation">Aanbeveling</message>
+	<message key="plugins.reports.reviews.comments">Opmerkingen bij de inzending</message>
 </locale>
-
