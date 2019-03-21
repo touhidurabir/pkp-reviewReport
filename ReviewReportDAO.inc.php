@@ -39,7 +39,7 @@ class ReviewReportDAO extends DAO {
 		));
 
 		$userDao = DAORegistry::getDAO('UserDAO');
-		$site = Application::getRequest()->getSite();
+		$site = Application::get()->getRequest()->getSite();
 		$sitePrimaryLocale = $site->getPrimaryLocale();
 
 		$params = array_merge(
