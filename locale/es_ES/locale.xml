@@ -26,5 +26,10 @@
 	<message key="plugins.reports.reviews.submissionId">ID del envío</message>
 	<message key="plugins.reports.reviews.recommendation">Recomendación</message>
 	<message key="plugins.reports.reviews.comments">Comentarios sobre el envío</message>
+	<message key="plugins.reports.reviews.dateAcknowledged">Fecha de reconocimiento</message>
+	<message key="plugins.reports.reviews.unconsidered">Sin considerar</message>
+	<message key="plugins.reports.reviews.reviewOverdue">Días de vencimiento de la revisión</message>
+	<message key="plugins.reports.reviews.responseOverdue">Días de vencimiento de la respuesta</message>
 </locale>
+
 
