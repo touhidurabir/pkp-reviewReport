@@ -2,14 +2,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"POT-Creation-Date: 2019-11-19T11:06:13+00:00\n"
+"PO-Revision-Date: 2020-10-18 17:50+0000\n"
+"Last-Translator: Eirik Hanssen <eirikh@oslomet.no>\n"
+"Language-Team: Norwegian Bokmål <http://translate.pkp.sfu.ca/projects/"
+"plugins/review-report-plugin/nb_NO/>\n"
+"Language: nb_NO\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2019-11-19T11:06:13+00:00\n"
-"PO-Revision-Date: 2019-11-19T11:06:13+00:00\n"
-"Language: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.9.1\n"
 
 msgid "plugins.reports.reviews.displayName"
 msgstr "Rapport over fagfellevurderingsoppdrag"
@@ -40,3 +43,27 @@ msgstr "Fullført dato"
 
 msgid "plugins.reports.reviews.dateReminded"
 msgstr "Dato for påminnelse"
+
+msgid "plugins.reports.reviews.comments"
+msgstr "Kommentarer til innleveringen"
+
+msgid "plugins.reports.reviews.recommendation"
+msgstr "Anbefaling"
+
+msgid "plugins.reports.reviews.responseOverdue"
+msgstr "Dager over frist for svar"
+
+msgid "plugins.reports.reviews.reviewOverdue"
+msgstr "Dager over frist for fagfellevurdering"
+
+msgid "plugins.reports.reviews.unconsidered"
+msgstr "Uoverveid"
+
+msgid "plugins.reports.reviews.dateAcknowledged"
+msgstr "Dato bekreftet"
+
+msgid "plugins.reports.reviews.submissionId"
+msgstr "Innleverings ID"
+
+msgid "plugins.reports.reviews.submissionTitle"
+msgstr "Innleveringstittel"
