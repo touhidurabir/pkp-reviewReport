@@ -3,7 +3,7 @@
 /**
  * @defgroup plugins_reports_reviews Review Report Plugin
  */
- 
+
 /**
  * @file index.php
  *
@@ -19,4 +19,3 @@
 require_once('ReviewReportPlugin.inc.php');
 
 return new ReviewReportPlugin();
-
