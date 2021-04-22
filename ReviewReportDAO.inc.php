@@ -15,7 +15,7 @@
  * @brief Review report DAO
  */
 
-import('lib.pkp.classes.submission.SubmissionComment');
+use \PKP\submission\SubmissionComment;
 
 class ReviewReportDAO extends DAO
 {
@@ -38,7 +38,7 @@ class ReviewReportDAO extends DAO
 				JOIN submissions s ON (s.submission_id = sc.submission_id)
 			WHERE	comment_type = ?
 				AND s.context_id = ?',
-            [COMMENT_TYPE_PEER_REVIEW, (int) $contextId]
+            [SubmissionComment::COMMENT_TYPE_PEER_REVIEW, (int) $contextId]
         );
 
         $userDao = DAORegistry::getDAO('UserDAO');
