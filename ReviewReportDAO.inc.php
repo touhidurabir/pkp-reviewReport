@@ -16,6 +16,7 @@
  */
 
 use \PKP\submission\SubmissionComment;
+use \PKP\user\InterestManager;
 
 class ReviewReportDAO extends DAO
 {
@@ -98,7 +99,6 @@ class ReviewReportDAO extends DAO
             )
         );
 
-        import('lib.pkp.classes.user.InterestManager');
         $interestManager = new InterestManager();
         $assignedReviewerIds = $this->retrieve(
             'SELECT	r.reviewer_id
