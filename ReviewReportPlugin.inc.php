@@ -15,7 +15,10 @@
  * @brief Review report plugin
  */
 
-import('lib.pkp.classes.plugins.ReportPlugin');
+use PKP\submission\reviewAssignment\ReviewAssignment;
+use PKP\plugins\ReportPlugin;
+use PKP\config\Config;
+use PKP\db\DAORegistry;
 
 class ReviewReportPlugin extends ReportPlugin
 {
@@ -83,14 +86,13 @@ class ReviewReportPlugin extends ReportPlugin
             }
         }
 
-        import('lib.pkp.classes.submission.reviewAssignment.ReviewAssignment');
         $recommendations = [
-            SUBMISSION_REVIEWER_RECOMMENDATION_ACCEPT => 'reviewer.article.decision.accept',
-            SUBMISSION_REVIEWER_RECOMMENDATION_PENDING_REVISIONS => 'reviewer.article.decision.pendingRevisions',
-            SUBMISSION_REVIEWER_RECOMMENDATION_RESUBMIT_HERE => 'reviewer.article.decision.resubmitHere',
-            SUBMISSION_REVIEWER_RECOMMENDATION_RESUBMIT_ELSEWHERE => 'reviewer.article.decision.resubmitElsewhere',
-            SUBMISSION_REVIEWER_RECOMMENDATION_DECLINE => 'reviewer.article.decision.decline',
-            SUBMISSION_REVIEWER_RECOMMENDATION_SEE_COMMENTS => 'reviewer.article.decision.seeComments'
+            ReviewAssignment::SUBMISSION_REVIEWER_RECOMMENDATION_ACCEPT => 'reviewer.article.decision.accept',
+            ReviewAssignment::SUBMISSION_REVIEWER_RECOMMENDATION_PENDING_REVISIONS => 'reviewer.article.decision.pendingRevisions',
+            ReviewAssignment::SUBMISSION_REVIEWER_RECOMMENDATION_RESUBMIT_HERE => 'reviewer.article.decision.resubmitHere',
+            ReviewAssignment::SUBMISSION_REVIEWER_RECOMMENDATION_RESUBMIT_ELSEWHERE => 'reviewer.article.decision.resubmitElsewhere',
+            ReviewAssignment::SUBMISSION_REVIEWER_RECOMMENDATION_DECLINE => 'reviewer.article.decision.decline',
+            ReviewAssignment::SUBMISSION_REVIEWER_RECOMMENDATION_SEE_COMMENTS => 'reviewer.article.decision.seeComments'
         ];
 
         $columns = [
@@ -175,12 +177,12 @@ class ReviewReportPlugin extends ReportPlugin
                             $reviewFormResponse = $reviewFormResponseDao->getReviewFormResponse($reviewId, $reviewFormElement->getId());
                             if ($reviewFormResponse) {
                                 $possibleResponses = $reviewFormElement->getLocalizedPossibleResponses();
-                                if (in_array($reviewFormElement->getElementType(), [REVIEW_FORM_ELEMENT_TYPE_CHECKBOXES, REVIEW_FORM_ELEMENT_TYPE_RADIO_BUTTONS])) {
+                                if (in_array($reviewFormElement->getElementType(), [$reviewFormElement::REVIEW_FORM_ELEMENT_TYPE_CHECKBOXES, $reviewFormElement::REVIEW_FORM_ELEMENT_TYPE_RADIO_BUTTONS])) {
                                     ksort($possibleResponses);
                                     $possibleResponses = array_values($possibleResponses);
                                 }
                                 if (in_array($reviewFormElement->getElementType(), $reviewFormElement->getMultipleResponsesElementTypes())) {
-                                    if ($reviewFormElement->getElementType() == REVIEW_FORM_ELEMENT_TYPE_CHECKBOXES) {
+                                    if ($reviewFormElement->getElementType() == $revieFormElement::REVIEW_FORM_ELEMENT_TYPE_CHECKBOXES) {
                                         $body .= '<ul>';
                                         foreach ($reviewFormResponse->getValue() as $value) {
                                             $body .= '<li>' . PKPString::stripUnsafeHtml($possibleResponses[$value]) . '</li>';
