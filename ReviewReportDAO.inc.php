@@ -15,8 +15,9 @@
  * @brief Review report DAO
  */
 
-use \PKP\submission\SubmissionComment;
-use \PKP\user\InterestManager;
+use APP\facades\Repo;
+use PKP\submission\SubmissionComment;
+use PKP\user\InterestManager;
 
 class ReviewReportDAO extends DAO
 {
@@ -42,7 +43,6 @@ class ReviewReportDAO extends DAO
             [SubmissionComment::COMMENT_TYPE_PEER_REVIEW, (int) $contextId]
         );
 
-        $userDao = DAORegistry::getDAO('UserDAO');
         $site = Application::get()->getRequest()->getSite();
         $sitePrimaryLocale = $site->getPrimaryLocale();
 
@@ -54,7 +54,6 @@ class ReviewReportDAO extends DAO
 				a.submission_id AS submission_id,
 				u.user_id AS reviewer_id,
 				u.username AS reviewer,
-				' . $userDao->getFetchColumns() . ',
 				u.email AS email,
 				u.country AS country,
 				us.setting_value AS orcid,
@@ -76,27 +75,21 @@ class ReviewReportDAO extends DAO
 				LEFT JOIN publication_settings asl ON (p.publication_id = asl.publication_id AND asl.locale = ? AND asl.setting_name = ?)
 				LEFT JOIN publication_settings aspl ON (p.publication_id = aspl.publication_id AND aspl.locale = a.locale AND aspl.setting_name = ?)
 				LEFT JOIN users u ON (u.user_id = r.reviewer_id)
-				' . $userDao->getFetchJoins() . '
 				LEFT JOIN user_settings uas ON (u.user_id = uas.user_id AND uas.setting_name = ? AND uas.locale = a.locale)
 				LEFT JOIN user_settings uasl ON (u.user_id = uasl.user_id AND uasl.setting_name = ? AND uasl.locale = ?)
 				LEFT JOIN user_settings us ON (u.user_id = us.user_id AND us.setting_name = ?)
 			WHERE	 a.context_id = ?
 			ORDER BY submission',
-            array_merge(
-                [
-                    $locale, // Submission title
-                    'title',
-                    'title',
-                ],
-                $userDao->getFetchParameters(),
-                [
-                    'affiliation',
-                    'affiliation',
-                    $sitePrimaryLocale,
-                    'orcid',
-                    (int) $contextId
-                ]
-            )
+            [
+                $locale, // Submission title
+                'title',
+                'title',
+                'affiliation',
+                'affiliation',
+                $sitePrimaryLocale,
+                'orcid',
+                (int) $contextId
+            ]
         );
 
         $interestManager = new InterestManager();
@@ -111,7 +104,7 @@ class ReviewReportDAO extends DAO
         $interests = [];
         while ($row = $assignedReviewerIds->next()) {
             if (!array_key_exists($row['reviewer_id'], $interests)) {
-                $user = $userDao->getById($row['reviewer_id']);
+                $user = Repo::user()->get($row['reviewer_id'], true);
                 $reviewerInterests = $interestManager->getInterestsString($user);
                 if (!empty($reviewerInterests)) {
                     $interests[$row['reviewer_id']] = $reviewerInterests;
