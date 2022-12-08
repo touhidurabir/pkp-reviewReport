@@ -123,6 +123,7 @@ class ReviewReportPlugin extends ReportPlugin
             'date_due' => __('reviewer.submission.reviewDueDate'),
             'overdue' => __('plugins.reports.reviews.reviewOverdue'),
             'declined' => __('submissions.declined'),
+            'cancelled' => __('common.cancelled'),
             'recommendation' => __('plugins.reports.reviews.recommendation'),
             'comments' => __('plugins.reports.reviews.comments')
         ];
@@ -156,6 +157,7 @@ class ReviewReportPlugin extends ReportPlugin
                     $columns[$index] = __(WorkflowStageDAO::getTranslationKeyFromId($row->$index));
                     break;
                 case 'declined':
+                case 'cancelled':
                     $columns[$index] = __($row->$index ? 'common.yes' : 'common.no');
                     break;
                 case 'unconsidered':
