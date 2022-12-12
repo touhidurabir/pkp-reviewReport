@@ -71,6 +71,7 @@ class ReviewReportDAO extends DAO
 				r.date_response_due AS date_response_due,
 				(r.declined=1) AS declined,
 				(r.unconsidered=1) AS unconsidered,
+				(r.cancelled=1) AS cancelled,
 				r.recommendation AS recommendation
 			FROM	review_assignments r
 				LEFT JOIN submissions a ON r.submission_id = a.submission_id
