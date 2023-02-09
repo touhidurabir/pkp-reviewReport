@@ -29,26 +29,6 @@ msgstr "Date de rappel"
 msgid "plugins.reports.reviews.dateCompleted"
 msgstr "Date de complétion"
 
-#, fuzzy
-msgid "plugins.reports.reviews.considered"
-msgstr "Consideration"
-
-#, fuzzy
-msgid "plugins.reports.reviews.considered.new"
-msgstr "Never"
-
-#, fuzzy
-msgid "plugins.reports.reviews.considered.considered"
-msgstr "Considered"
-
-#, fuzzy
-msgid "plugins.reports.reviews.considered.unconsidered"
-msgstr "Unconsidered"
-
-#, fuzzy
-msgid "plugins.reports.reviews.considered.reconsidered"
-msgstr "Reconsidered"
-
 msgid "plugins.reports.reviews.dateAcknowledged"
 msgstr "Date de confirmation"
 

@@ -59,26 +59,6 @@ msgstr "Recomendação"
 msgid "plugins.reports.reviews.responseOverdue"
 msgstr "Dias de atraso de resposta"
 
-#, fuzzy
-msgid "plugins.reports.reviews.considered"
-msgstr "Consideration"
-
-#, fuzzy
-msgid "plugins.reports.reviews.considered.new"
-msgstr "Never"
-
-#, fuzzy
-msgid "plugins.reports.reviews.considered.considered"
-msgstr "Considered"
-
-#, fuzzy
-msgid "plugins.reports.reviews.considered.unconsidered"
-msgstr "Unconsidered"
-
-#, fuzzy
-msgid "plugins.reports.reviews.considered.reconsidered"
-msgstr "Reconsidered"
-
 msgid "plugins.reports.reviews.submissionId"
 msgstr "ID da submissão"
 

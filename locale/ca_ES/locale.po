@@ -29,26 +29,6 @@ msgstr "Data recordatori"
 msgid "plugins.reports.reviews.dateCompleted"
 msgstr "Data completada"
 
-#, fuzzy
-msgid "plugins.reports.reviews.considered"
-msgstr "Consideration"
-
-#, fuzzy
-msgid "plugins.reports.reviews.considered.new"
-msgstr "Never"
-
-#, fuzzy
-msgid "plugins.reports.reviews.considered.considered"
-msgstr "Considered"
-
-#, fuzzy
-msgid "plugins.reports.reviews.considered.unconsidered"
-msgstr "Unconsidered"
-
-#, fuzzy
-msgid "plugins.reports.reviews.considered.reconsidered"
-msgstr "Reconsidered"
-
 msgid "plugins.reports.reviews.dateAcknowledged"
 msgstr "Data confirmada"
 
