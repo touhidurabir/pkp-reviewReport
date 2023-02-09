@@ -77,7 +77,7 @@ class ReviewReportPlugin extends ReportPlugin
         header('content-type: text/comma-separated-values');
         header('content-disposition: attachment; filename=reviews-' . date('Ymd') . '.csv');
 
-        $reviewReportDao = DAORegistry::getDAO('ReviewReportDAO');
+        $reviewReportDao = DAORegistry::getDAO('ReviewReportDAO'); /** @var ReviewReportDAO $reviewReportDao */
         [$commentsIterator, $reviewsIterator, $interestsArray] = $reviewReportDao->getReviewReport($context->getId());
 
         $comments = [];
@@ -98,6 +98,13 @@ class ReviewReportPlugin extends ReportPlugin
             ReviewAssignment::SUBMISSION_REVIEWER_RECOMMENDATION_SEE_COMMENTS => 'reviewer.article.decision.seeComments'
         ];
 
+        $considerations = [
+            ReviewAssignment::REVIEW_ASSIGNMENT_NEW             => 'plugins.reports.reviews.considered.new',
+            ReviewAssignment::REVIEW_ASSIGNMENT_CONSIDERED      => 'plugins.reports.reviews.considered.considered',
+            ReviewAssignment::REVIEW_ASSIGNMENT_UNCONSIDERED    => 'plugins.reports.reviews.considered.unconsidered',
+            ReviewAssignment::REVIEW_ASSIGNMENT_RECONSIDERED    => 'plugins.reports.reviews.considered.reconsidered',
+        ];
+
         $columns = [
             'stage_id' => __('workflow.stage'),
             'round' => __('plugins.reports.reviews.round'),
@@ -116,7 +123,7 @@ class ReviewReportPlugin extends ReportPlugin
             'date_confirmed' => __('plugins.reports.reviews.dateConfirmed'),
             'date_completed' => __('plugins.reports.reviews.dateCompleted'),
             'date_acknowledged' => __('plugins.reports.reviews.dateAcknowledged'),
-            'unconsidered' => __('plugins.reports.reviews.unconsidered'),
+            'considered' => __('plugins.reports.reviews.considered'),
             'date_reminded' => __('plugins.reports.reviews.dateReminded'),
             'date_response_due' => __('reviewer.submission.responseDueDate'),
             'overdue_response' => __('plugins.reports.reviews.responseOverdue'),
@@ -160,8 +167,8 @@ class ReviewReportPlugin extends ReportPlugin
                 case 'cancelled':
                     $columns[$index] = __($row->$index ? 'common.yes' : 'common.no');
                     break;
-                case 'unconsidered':
-                    $columns[$index] = __($row->$index ? 'common.yes' : '');
+                case 'considered':
+                    $columns[$index] = isset($considerations[$row->$index]) ? __($considerations[$row->$index]) : '';
                     break;
                 case 'recommendation':
                     $columns[$index] = isset($recommendations[$row->$index]) ? __($recommendations[$row->$index]) : '';

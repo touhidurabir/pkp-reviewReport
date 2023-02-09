@@ -58,8 +58,25 @@ msgstr "Dager over frist for svar"
 msgid "plugins.reports.reviews.reviewOverdue"
 msgstr "Dager over frist for fagfellevurdering"
 
-msgid "plugins.reports.reviews.unconsidered"
-msgstr "Ikke vurdert"
+#, fuzzy
+msgid "plugins.reports.reviews.considered"
+msgstr "Consideration"
+
+#, fuzzy
+msgid "plugins.reports.reviews.considered.new"
+msgstr "Never"
+
+#, fuzzy
+msgid "plugins.reports.reviews.considered.considered"
+msgstr "Considered"
+
+#, fuzzy
+msgid "plugins.reports.reviews.considered.unconsidered"
+msgstr "Unconsidered"
+
+#, fuzzy
+msgid "plugins.reports.reviews.considered.reconsidered"
+msgstr "Reconsidered"
 
 msgid "plugins.reports.reviews.dateAcknowledged"
 msgstr "Dato bekreftet"
