@@ -57,26 +57,6 @@ msgstr "応答延滞日数"
 msgid "plugins.reports.reviews.reviewOverdue"
 msgstr "査読延滞日数"
 
-#, fuzzy
-msgid "plugins.reports.reviews.considered"
-msgstr "Consideration"
-
-#, fuzzy
-msgid "plugins.reports.reviews.considered.new"
-msgstr "Never"
-
-#, fuzzy
-msgid "plugins.reports.reviews.considered.considered"
-msgstr "Considered"
-
-#, fuzzy
-msgid "plugins.reports.reviews.considered.unconsidered"
-msgstr "Unconsidered"
-
-#, fuzzy
-msgid "plugins.reports.reviews.considered.reconsidered"
-msgstr "Reconsidered"
-
 msgid "plugins.reports.reviews.dateAcknowledged"
 msgstr "承認された日付"
 
