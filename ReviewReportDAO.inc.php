@@ -70,7 +70,7 @@ class ReviewReportDAO extends DAO
 				r.date_due AS date_due,
 				r.date_response_due AS date_response_due,
 				(r.declined=1) AS declined,
-				(r.unconsidered=1) AS unconsidered,
+				r.considered AS considered,
 				(r.cancelled=1) AS cancelled,
 				r.recommendation AS recommendation
 			FROM	review_assignments r

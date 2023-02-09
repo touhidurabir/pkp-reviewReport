@@ -29,8 +29,25 @@ msgstr "Data recordatoria"
 msgid "plugins.reports.reviews.dateCompleted"
 msgstr "Data de finalización"
 
-msgid "plugins.reports.reviews.unconsidered"
-msgstr "Non considerado"
+#, fuzzy
+msgid "plugins.reports.reviews.considered"
+msgstr "Consideration"
+
+#, fuzzy
+msgid "plugins.reports.reviews.considered.new"
+msgstr "Never"
+
+#, fuzzy
+msgid "plugins.reports.reviews.considered.considered"
+msgstr "Considered"
+
+#, fuzzy
+msgid "plugins.reports.reviews.considered.unconsidered"
+msgstr "Unconsidered"
+
+#, fuzzy
+msgid "plugins.reports.reviews.considered.reconsidered"
+msgstr "Reconsidered"
 
 msgid "plugins.reports.reviews.dateAcknowledged"
 msgstr "Data de acuse de recibo"
