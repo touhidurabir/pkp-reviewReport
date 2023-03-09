@@ -13,6 +13,6 @@
 <version>
 	<application>reviewReport</application>
 	<type>plugins.reports</type>
-	<release>2.0.0.0</release>
-	<date>2017-01-13</date>
+	<release>2.0.1.0</release>
+	<date>2023-03-09</date>
 </version>

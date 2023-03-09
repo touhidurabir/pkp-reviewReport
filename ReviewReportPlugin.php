@@ -15,6 +15,8 @@
  * @brief Review report plugin
  */
 
+namespace APP\plugins\reports\reviewReport;
+
 use APP\core\Application;
 use PKP\core\PKPString;
 use PKP\db\DAORegistry;
@@ -36,7 +38,6 @@ class ReviewReportPlugin extends ReportPlugin
             return $success;
         }
 
-        $this->import('ReviewReportDAO');
         $reviewReportDAO = new ReviewReportDAO();
         DAORegistry::registerDAO('ReviewReportDAO', $reviewReportDAO);
         $this->addLocaleData();

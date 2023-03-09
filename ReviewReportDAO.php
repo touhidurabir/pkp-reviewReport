@@ -15,6 +15,8 @@
  * @brief Review report DAO
  */
 
+namespace APP\plugins\reports\reviewReport;
+
 use APP\core\Application;
 use APP\facades\Repo;
 use PKP\db\DAO;
